@@ -13,7 +13,9 @@ reiniciar   reiniciar
 lista       lista
 tiene       tiene
 es          es
-nombre      [a-zA-Z][a-zA-Z]*    
+nombre      [a-zA-Z][a-zA-Z]*
+complemento [a-zA-Z][a-zA-Z]*
+atributo    [a-zA-Z][a-zA-Z]*  
 
 %%
 
