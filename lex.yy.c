@@ -789,7 +789,7 @@ YY_RULE_SETUP
 case 7:
 YY_RULE_SETUP
 #line 26 "lexer.l"
-{ return '?'; }
+{ return ISIGN; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP

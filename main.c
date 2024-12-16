@@ -2,12 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "game_logic.h"  // Lógica del juego
+
 extern int yylex();
 extern int yyparse();
 
-
 int main() {
-    
     // Inicializar personajes o cualquier estado necesario para el juego
     inicializar_personajes();
 
@@ -19,9 +18,15 @@ int main() {
     printf("- Reiniciar el juego: reiniciar\n");
     printf("- Salir: salir\n");
 
-    yyparse();
+    while (1) {
+        printf("\n> ");  // Indicador de entrada
+        if (yyparse() != 0) {
+            // Si `yyparse` encuentra un error crítico, salimos del bucle
+            fprintf(stderr, "Ocurrió un error. Finalizando el programa.\n");
+            break;
+        }
+    }
 
+    printf("Gracias por jugar. ¡Hasta luego!\n");
     return 0;
 }
-
-

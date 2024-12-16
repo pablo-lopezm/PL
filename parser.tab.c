@@ -73,11 +73,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include "game_logic.h"  // Lógica del juego
+
 extern int yylex();
 extern int yyparse();
+extern char* yytext;  // Contiene el texto del token que se está procesando
+extern int yylineno;  // Número de línea actual
+
 void yyerror(const char *s);
 
-#line 81 "parser.tab.c"
+#line 85 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -115,7 +119,7 @@ enum yysymbol_kind_t
   YYSYMBOL_NOMBRE = 7,                     /* NOMBRE  */
   YYSYMBOL_TIENE = 8,                      /* TIENE  */
   YYSYMBOL_ES = 9,                         /* ES  */
-  YYSYMBOL_10_ = 10,                       /* '?'  */
+  YYSYMBOL_ISIGN = 10,                     /* ISIGN  */
   YYSYMBOL_YYACCEPT = 11,                  /* $accept  */
   YYSYMBOL_inicio = 12,                    /* inicio  */
   YYSYMBOL_linea = 13,                     /* linea  */
@@ -461,7 +465,7 @@ union yyalloc
 #define YYNSTATES  19
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   264
+#define YYMAXUTOK   265
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -481,7 +485,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    10,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -501,15 +505,15 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9
+       5,     6,     7,     8,     9,    10
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    20,    20,    24,    25,    26,    27,    34,    35,    36,
-      40,    46
+       0,    24,    24,    28,    29,    30,    31,    37,    38,    39,
+      43,    49
 };
 #endif
 
@@ -526,8 +530,8 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "SALIR", "REINICIAR",
-  "PREGUNTA", "LISTA", "NOMBRE", "TIENE", "ES", "'?'", "$accept", "inicio",
-  "linea", "comandos", "preguntas", "intentos", YY_NULLPTR
+  "PREGUNTA", "LISTA", "NOMBRE", "TIENE", "ES", "ISIGN", "$accept",
+  "inicio", "linea", "comandos", "preguntas", "intentos", YY_NULLPTR
 };
 
 static const char *
@@ -1074,50 +1078,49 @@ yyreduce:
   switch (yyn)
     {
   case 6: /* linea: error  */
-#line 27 "parser.y"
+#line 31 "parser.y"
             {
-        fprintf(stderr, "No entendí tu pregunta. Inténtalo nuevamente.\n");
-
+        fprintf(stderr, "No entendí tu pregunta en la línea %d cerca de '%s'. Inténtalo nuevamente.\n", yylineno, yytext);
     }
-#line 1083 "parser.tab.c"
+#line 1086 "parser.tab.c"
     break;
 
   case 7: /* comandos: REINICIAR  */
-#line 34 "parser.y"
-              { reiniciar_juego(); }
-#line 1089 "parser.tab.c"
+#line 37 "parser.y"
+              { reiniciar_juego(); return 0;}
+#line 1092 "parser.tab.c"
     break;
 
   case 8: /* comandos: SALIR  */
-#line 35 "parser.y"
-            { salir_juego();}
-#line 1095 "parser.tab.c"
+#line 38 "parser.y"
+            { salir_juego(); }
+#line 1098 "parser.tab.c"
     break;
 
   case 9: /* comandos: LISTA  */
-#line 36 "parser.y"
-            { mostrar_lista_personajes(); }
-#line 1101 "parser.tab.c"
+#line 39 "parser.y"
+            { mostrar_lista_personajes(); return 0;}
+#line 1104 "parser.tab.c"
     break;
 
-  case 10: /* preguntas: PREGUNTA TIENE NOMBRE NOMBRE '?'  */
-#line 40 "parser.y"
-                                      {
-        manejar_pregunta((yyvsp[-2].sval), (yyvsp[-1].sval));
+  case 10: /* preguntas: PREGUNTA TIENE NOMBRE NOMBRE ISIGN  */
+#line 43 "parser.y"
+                                        {
+        manejar_pregunta((yyvsp[-2].sval), (yyvsp[-1].sval)); return 0;
     }
-#line 1109 "parser.tab.c"
+#line 1112 "parser.tab.c"
     break;
 
-  case 11: /* intentos: PREGUNTA ES NOMBRE '?'  */
-#line 46 "parser.y"
-                            {
-        manejar_adivinanza((yyvsp[-1].sval));
+  case 11: /* intentos: PREGUNTA ES NOMBRE ISIGN  */
+#line 49 "parser.y"
+                              {
+        manejar_adivinanza((yyvsp[-1].sval)); return 0;
     }
-#line 1117 "parser.tab.c"
+#line 1120 "parser.tab.c"
     break;
 
 
-#line 1121 "parser.tab.c"
+#line 1124 "parser.tab.c"
 
       default: break;
     }
@@ -1310,9 +1313,9 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 51 "parser.y"
+#line 54 "parser.y"
 
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Error: %s\n", s);
+    fprintf(stderr, "Error de sintaxis en la línea %d cerca de '%s': %s\n", yylineno, yytext, s);
 }

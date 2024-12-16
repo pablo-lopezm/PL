@@ -23,7 +23,7 @@ nombre      [a-zA-Z][a-zA-Z]*
 "¿El personaje"  { return PREGUNTA; }
 {tiene}          { return TIENE; }
 {es}             { return ES; }
-"?"              { return '?'; }
+"?"              { return ISIGN; }
 {nombre}         { yylval.sval = strdup(yytext);return NOMBRE;}
 [ \t\r\n]+         {  }
 

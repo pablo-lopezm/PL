@@ -60,7 +60,8 @@ extern int yydebug;
     LISTA = 261,                   /* LISTA  */
     NOMBRE = 262,                  /* NOMBRE  */
     TIENE = 263,                   /* TIENE  */
-    ES = 264                       /* ES  */
+    ES = 264,                      /* ES  */
+    ISIGN = 265                    /* ISIGN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -69,11 +70,11 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 11 "parser.y"
+#line 15 "parser.y"
 
     char* sval;
 
-#line 77 "parser.tab.h"
+#line 78 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
