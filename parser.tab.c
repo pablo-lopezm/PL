@@ -116,16 +116,31 @@ enum yysymbol_kind_t
   YYSYMBOL_REINICIAR = 4,                  /* REINICIAR  */
   YYSYMBOL_PREGUNTA = 5,                   /* PREGUNTA  */
   YYSYMBOL_LISTA = 6,                      /* LISTA  */
-  YYSYMBOL_NOMBRE = 7,                     /* NOMBRE  */
-  YYSYMBOL_TIENE = 8,                      /* TIENE  */
-  YYSYMBOL_ES = 9,                         /* ES  */
+  YYSYMBOL_TIENE = 7,                      /* TIENE  */
+  YYSYMBOL_ES = 8,                         /* ES  */
+  YYSYMBOL_LLEVA = 9,                      /* LLEVA  */
   YYSYMBOL_ISIGN = 10,                     /* ISIGN  */
-  YYSYMBOL_YYACCEPT = 11,                  /* $accept  */
-  YYSYMBOL_inicio = 12,                    /* inicio  */
-  YYSYMBOL_linea = 13,                     /* linea  */
-  YYSYMBOL_comandos = 14,                  /* comandos  */
-  YYSYMBOL_preguntas = 15,                 /* preguntas  */
-  YYSYMBOL_intentos = 16                   /* intentos  */
+  YYSYMBOL_CABELLO = 11,                   /* CABELLO  */
+  YYSYMBOL_VELLO_FACIAL = 12,              /* VELLO_FACIAL  */
+  YYSYMBOL_NARIZ = 13,                     /* NARIZ  */
+  YYSYMBOL_LABIOS = 14,                    /* LABIOS  */
+  YYSYMBOL_OJOS = 15,                      /* OJOS  */
+  YYSYMBOL_SEXO = 16,                      /* SEXO  */
+  YYSYMBOL_COMPLEMENTO = 17,               /* COMPLEMENTO  */
+  YYSYMBOL_LARGURA = 18,                   /* LARGURA  */
+  YYSYMBOL_COLOR = 19,                     /* COLOR  */
+  YYSYMBOL_TIPO = 20,                      /* TIPO  */
+  YYSYMBOL_TIPO_NARIZ = 21,                /* TIPO_NARIZ  */
+  YYSYMBOL_TIPO_VELLO = 22,                /* TIPO_VELLO  */
+  YYSYMBOL_TIPO_LABIO = 23,                /* TIPO_LABIO  */
+  YYSYMBOL_TIPO_COMPLEMENTO = 24,          /* TIPO_COMPLEMENTO  */
+  YYSYMBOL_NOMBRE = 25,                    /* NOMBRE  */
+  YYSYMBOL_YYACCEPT = 26,                  /* $accept  */
+  YYSYMBOL_inicio = 27,                    /* inicio  */
+  YYSYMBOL_linea = 28,                     /* linea  */
+  YYSYMBOL_comandos = 29,                  /* comandos  */
+  YYSYMBOL_preguntas = 30,                 /* preguntas  */
+  YYSYMBOL_intentos = 31                   /* intentos  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -451,21 +466,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  13
+#define YYFINAL  15
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   16
+#define YYLAST   38
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  11
+#define YYNTOKENS  26
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  6
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  11
+#define YYNRULES  23
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  19
+#define YYNSTATES  44
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   265
+#define YYMAXUTOK   280
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -505,15 +520,18 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    24,    24,    28,    29,    30,    31,    37,    38,    39,
-      43,    49
+       0,    28,    28,    32,    33,    34,    35,    42,    43,    44,
+      45,    53,    57,    61,    67,    71,    77,    83,    89,    95,
+     101,   107,   114,   118
 };
 #endif
 
@@ -530,8 +548,11 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "SALIR", "REINICIAR",
-  "PREGUNTA", "LISTA", "NOMBRE", "TIENE", "ES", "ISIGN", "$accept",
-  "inicio", "linea", "comandos", "preguntas", "intentos", YY_NULLPTR
+  "PREGUNTA", "LISTA", "TIENE", "ES", "LLEVA", "ISIGN", "CABELLO",
+  "VELLO_FACIAL", "NARIZ", "LABIOS", "OJOS", "SEXO", "COMPLEMENTO",
+  "LARGURA", "COLOR", "TIPO", "TIPO_NARIZ", "TIPO_VELLO", "TIPO_LABIO",
+  "TIPO_COMPLEMENTO", "NOMBRE", "$accept", "inicio", "linea", "comandos",
+  "preguntas", "intentos", YY_NULLPTR
 };
 
 static const char *
@@ -541,7 +562,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-3)
+#define YYPACT_NINF (-10)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -555,8 +576,11 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -1,    -3,    -3,    -3,    -2,    -3,     1,    -3,    -3,    -3,
-      -3,     2,     3,    -3,     4,     5,     6,    -3,    -3
+      13,   -10,   -10,   -10,     0,   -10,    21,   -10,   -10,   -10,
+     -10,   -10,    -9,    -1,    -4,   -10,    -8,     1,     4,     3,
+       8,   -10,    12,    18,    19,    20,    22,    23,    24,    25,
+      26,    27,    28,   -10,   -10,   -10,   -10,   -10,   -10,   -10,
+     -10,   -10,   -10,   -10
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -565,13 +589,16 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     6,     8,     7,     0,     9,     0,     2,     3,     4,
-       5,     0,     0,     1,     0,     0,     0,    11,    10
+       5,    21,     0,     0,     0,     1,     0,     0,     0,     0,
+       0,    23,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,    19,    22,    20,    12,    11,    13,    15,
+      14,    16,    17,    18
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -3,    -3,    -3,    -3,    -3,    -3
+     -10,   -10,   -10,   -10,   -10,   -10
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -585,36 +612,45 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,    13,     2,     3,     4,     5,    11,    12,     0,    14,
-      15,    16,     0,     0,     0,    17,    18
+      21,    11,    16,    17,    18,    19,    20,    12,    13,    14,
+      25,    26,    27,    24,     1,    22,     2,     3,     4,     5,
+      28,    15,    33,    29,    23,    30,    31,    32,    34,    35,
+      36,     0,    37,    38,    39,    40,    41,    42,    43
 };
 
 static const yytype_int8 yycheck[] =
 {
-       1,     0,     3,     4,     5,     6,     8,     9,    -1,     7,
-       7,     7,    -1,    -1,    -1,    10,    10
+       1,     1,    11,    12,    13,    14,    15,     7,     8,     9,
+      18,    19,    20,    17,     1,    16,     3,     4,     5,     6,
+      19,     0,    10,    22,    25,    21,    23,    19,    10,    10,
+      10,    -1,    10,    10,    10,    10,    10,    10,    10
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     1,     3,     4,     5,     6,    12,    13,    14,    15,
-      16,     8,     9,     0,     7,     7,     7,    10,    10
+       0,     1,     3,     4,     5,     6,    27,    28,    29,    30,
+      31,     1,     7,     8,     9,     0,    11,    12,    13,    14,
+      15,     1,    16,    25,    17,    18,    19,    20,    19,    22,
+      21,    23,    19,    10,    10,    10,    10,    10,    10,    10,
+      10,    10,    10,    10
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    11,    12,    13,    13,    13,    13,    14,    14,    14,
-      15,    16
+       0,    26,    27,    28,    28,    28,    28,    29,    29,    29,
+      29,    30,    30,    30,    30,    30,    30,    30,    30,    30,
+      30,    30,    31,    31
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     1,     1,     1,     1,     1,     1,     1,
-       5,     4
+       1,     5,     5,     5,     5,     5,     5,     5,     5,     4,
+       4,     2,     4,     3
 };
 
 
@@ -1078,49 +1114,160 @@ yyreduce:
   switch (yyn)
     {
   case 6: /* linea: error  */
-#line 31 "parser.y"
+#line 35 "parser.y"
             {
-        fprintf(stderr, "No entendí tu pregunta en la línea %d cerca de '%s'. Inténtalo nuevamente.\n", yylineno, yytext);
+        yyerror("Entrada no válida. Revisa la gramática permitida y vuelve a intentarlo.");
+        return 0;
     }
-#line 1086 "parser.tab.c"
+#line 1123 "parser.tab.c"
     break;
 
   case 7: /* comandos: REINICIAR  */
-#line 37 "parser.y"
-              { reiniciar_juego(); return 0;}
-#line 1092 "parser.tab.c"
+#line 42 "parser.y"
+              { reiniciar_juego(); return 0; }
+#line 1129 "parser.tab.c"
     break;
 
   case 8: /* comandos: SALIR  */
-#line 38 "parser.y"
+#line 43 "parser.y"
             { salir_juego(); }
-#line 1098 "parser.tab.c"
+#line 1135 "parser.tab.c"
     break;
 
   case 9: /* comandos: LISTA  */
-#line 39 "parser.y"
-            { mostrar_lista_personajes(); return 0;}
-#line 1104 "parser.tab.c"
+#line 44 "parser.y"
+            { mostrar_lista_personajes(); return 0; }
+#line 1141 "parser.tab.c"
     break;
 
-  case 10: /* preguntas: PREGUNTA TIENE NOMBRE NOMBRE ISIGN  */
-#line 43 "parser.y"
+  case 10: /* comandos: error  */
+#line 45 "parser.y"
+            {
+        yyerror("Comando no reconocido. Los comandos permitidos son: 'REINICIAR', 'SALIR', 'LISTA'.");
+        return 0;
+    }
+#line 1150 "parser.tab.c"
+    break;
+
+  case 11: /* preguntas: PREGUNTA TIENE CABELLO COLOR ISIGN  */
+#line 53 "parser.y"
+                                       {
+        manejar_pregunta("cabello color", (yyvsp[-1].sval));
+        return 0;
+    }
+#line 1159 "parser.tab.c"
+    break;
+
+  case 12: /* preguntas: PREGUNTA TIENE CABELLO LARGURA ISIGN  */
+#line 57 "parser.y"
+                                           { 
+        manejar_pregunta("cabello largura", (yyvsp[-1].sval));
+        return 0;
+    }
+#line 1168 "parser.tab.c"
+    break;
+
+  case 13: /* preguntas: PREGUNTA TIENE CABELLO TIPO ISIGN  */
+#line 61 "parser.y"
                                         {
-        manejar_pregunta((yyvsp[-2].sval), (yyvsp[-1].sval)); return 0;
+        manejar_pregunta("cabello tipo", (yyvsp[-1].sval));
+        return 0;
     }
-#line 1112 "parser.tab.c"
+#line 1177 "parser.tab.c"
     break;
 
-  case 11: /* intentos: PREGUNTA ES NOMBRE ISIGN  */
-#line 49 "parser.y"
-                              {
-        manejar_adivinanza((yyvsp[-1].sval)); return 0;
+  case 14: /* preguntas: PREGUNTA TIENE VELLO_FACIAL TIPO_VELLO ISIGN  */
+#line 67 "parser.y"
+                                                   {
+        manejar_pregunta("vello facial tipo", (yyvsp[-1].sval));
+        return 0;
     }
-#line 1120 "parser.tab.c"
+#line 1186 "parser.tab.c"
+    break;
+
+  case 15: /* preguntas: PREGUNTA TIENE VELLO_FACIAL COLOR ISIGN  */
+#line 71 "parser.y"
+                                              {
+        manejar_pregunta("vello facial color", (yyvsp[-1].sval));
+        return 0;
+    }
+#line 1195 "parser.tab.c"
+    break;
+
+  case 16: /* preguntas: PREGUNTA TIENE NARIZ TIPO_NARIZ ISIGN  */
+#line 77 "parser.y"
+                                            {
+        manejar_pregunta("nariz", (yyvsp[-1].sval));
+        return 0;
+    }
+#line 1204 "parser.tab.c"
+    break;
+
+  case 17: /* preguntas: PREGUNTA TIENE LABIOS TIPO_LABIO ISIGN  */
+#line 83 "parser.y"
+                                             {
+        manejar_pregunta("labios", (yyvsp[-1].sval));
+        return 0;
+    }
+#line 1213 "parser.tab.c"
+    break;
+
+  case 18: /* preguntas: PREGUNTA TIENE OJOS COLOR ISIGN  */
+#line 89 "parser.y"
+                                      {
+        manejar_pregunta("ojos", (yyvsp[-1].sval));
+        return 0;
+    }
+#line 1222 "parser.tab.c"
+    break;
+
+  case 19: /* preguntas: PREGUNTA ES SEXO ISIGN  */
+#line 95 "parser.y"
+                             {
+        manejar_pregunta("sexo", (yyvsp[-1].sval));
+        return 0;
+    }
+#line 1231 "parser.tab.c"
+    break;
+
+  case 20: /* preguntas: PREGUNTA LLEVA COMPLEMENTO ISIGN  */
+#line 101 "parser.y"
+                                       {
+        manejar_pregunta("complemento", (yyvsp[-1].sval));
+        return 0;
+    }
+#line 1240 "parser.tab.c"
+    break;
+
+  case 21: /* preguntas: PREGUNTA error  */
+#line 107 "parser.y"
+                     {
+        yyerror("Pregunta mal formada. Asegúrate de usar 'TIENE', 'ES' o 'LLEVA' correctamente.");
+        return 0;
+    }
+#line 1249 "parser.tab.c"
+    break;
+
+  case 22: /* intentos: PREGUNTA ES NOMBRE ISIGN  */
+#line 114 "parser.y"
+                             {
+        manejar_adivinanza((yyvsp[-1].sval));
+        return 0;
+    }
+#line 1258 "parser.tab.c"
+    break;
+
+  case 23: /* intentos: PREGUNTA ES error  */
+#line 118 "parser.y"
+                        {
+        yyerror("Adivinanza mal formada. Usa 'ES <nombre>' correctamente.");
+        return 0;
+    }
+#line 1267 "parser.tab.c"
     break;
 
 
-#line 1124 "parser.tab.c"
+#line 1271 "parser.tab.c"
 
       default: break;
     }
@@ -1313,9 +1460,10 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 54 "parser.y"
+#line 124 "parser.y"
 
 
+// Manejador de errores
 void yyerror(const char *s) {
-    fprintf(stderr, "Error de sintaxis en la línea %d cerca de '%s': %s\n", yylineno, yytext, s);
+    fprintf(stderr, "Error en la línea %d cerca de '%s': %s\n", yylineno, yytext, s);
 }

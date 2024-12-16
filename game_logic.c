@@ -4,117 +4,129 @@
 #include <time.h>
 #include "game_logic.h"
 
+// Definir la estructura con los atributos solicitados
 typedef struct {
     char nombre[50];
-    char atributos[10][50];
-    int num_atributos;
+    struct {
+        char color[20];    // Color del cabello
+        char largura[20];  // Largura del cabello (corto, largo, calvo)
+        char tipo[20];     // Tipo del cabello (liso, rizado)
+    } cabello;
+    struct {
+        char color[20];    // Color del vello facial
+        char tipo[20];     // Tipo del vello facial (barba, bigote, etc.)
+    } vello_facial;
+    char nariz[20];        // Nariz grande o pequeña
+    char labios[20];       // Labios gruesos o finos
+    char ojos[20];         // Color de los ojos
+    char complemento[50];  // Complemento (ej. gafas, sombrero, etc.)
+    char sexo[10];         // Sexo del personaje
 } Personaje;
 
+// Variables globales
 Personaje personajes[10];
 int num_personajes = 0;
 Personaje* personaje_actual = NULL; // Personaje seleccionado
 
+// Función para inicializar los personajes con los datos especificados
 void inicializar_personajes() {
     num_personajes = 10;
 
-    // Mario
-    strcpy(personajes[0].nombre, "Mario");
-    personajes[0].num_atributos = 4;
-    strcpy(personajes[0].atributos[0], "cabello negro");
-    strcpy(personajes[0].atributos[1], "ojos azules");
-    strcpy(personajes[0].atributos[2], "alto");
-    strcpy(personajes[0].atributos[3], "ropa roja");
+    Personaje personajes_inicializados[10] = {
+        {"Alex", {"negro", "corto", "liso"}, {"negro", "bigote"}, "pequeña", "gruesos", "marrones", "", "masculino"},
+        {"Alfred", {"pelirrojo", "largo", "liso"}, {"pelirrojo", "bigote"}, "pequeña", "finos", "azules", "", "masculino"},
+        {"Anita", {"rubio", "largo", "liso"}, {"", ""}, "pequeña", "finos", "azules", "lazos", "femenino"},
+        {"Anne", {"castaño", "largo", "rizado"}, {"", ""}, "grande", "finos", "marrones", "pendientes", "femenino"},
+        {"Bernard", {"castaño", "corto", "liso"}, {"", ""}, "grande", "finos", "marrones", "gorro", "masculino"},
+        {"David", {"rubio", "corto", "liso"}, {"rubio", "barba"}, "pequeña", "gruesos", "marrones", "", "masculino"},
+        {"Eric", {"rubio", "corto", "liso"}, {"", ""}, "pequeña", "gruesos", "negros", "gorro policía", "masculino"},
+        {"Frans", {"pelirrojo", "corto", "rizado"}, {"", ""}, "pequeña", "finos", "marrones", "", "masculino"},
+        {"George", {"blanco", "corto", "liso"}, {"", ""}, "pequeña", "gruesos", "marrones", "sombrero", "masculino"},
+        {"Herman", {"", "calvo", ""}, {"", ""}, "grande", "gruesos", "marrones", "", "masculino"}
+    };
 
-    // Luigi
-    strcpy(personajes[1].nombre, "Luigi");
-    personajes[1].num_atributos = 4;
-    strcpy(personajes[1].atributos[0], "cabello castaño");
-    strcpy(personajes[1].atributos[1], "ojos verdes");
-    strcpy(personajes[1].atributos[2], "alto");
-    strcpy(personajes[1].atributos[3], "ropa verde");
-
-    // Peach
-    strcpy(personajes[2].nombre, "Peach");
-    personajes[2].num_atributos = 4;
-    strcpy(personajes[2].atributos[0], "cabello rubio");
-    strcpy(personajes[2].atributos[1], "ojos azules");
-    strcpy(personajes[2].atributos[2], "mediana");
-    strcpy(personajes[2].atributos[3], "ropa rosa");
-
-    // Bowser
-    strcpy(personajes[3].nombre, "Bowser");
-    personajes[3].num_atributos = 4;
-    strcpy(personajes[3].atributos[0], "cabello rojo");
-    strcpy(personajes[3].atributos[1], "ojos amarillos");
-    strcpy(personajes[3].atributos[2], "gigante");
-    strcpy(personajes[3].atributos[3], "ropa amarilla");
-
-    // Toad
-    strcpy(personajes[4].nombre, "Toad");
-    personajes[4].num_atributos = 3;
-    strcpy(personajes[4].atributos[0], "sin cabello");
-    strcpy(personajes[4].atributos[1], "ojos negros");
-    strcpy(personajes[4].atributos[2], "bajo");
-
-    // Yoshi
-    strcpy(personajes[5].nombre, "Yoshi");
-    personajes[5].num_atributos = 4;
-    strcpy(personajes[5].atributos[0], "cabello verde");
-    strcpy(personajes[5].atributos[1], "ojos marrones");
-    strcpy(personajes[5].atributos[2], "medio");
-    strcpy(personajes[5].atributos[3], "ropa naranja");
-
-    // Wario
-    strcpy(personajes[6].nombre, "Wario");
-    personajes[6].num_atributos = 4;
-    strcpy(personajes[6].atributos[0], "cabello amarillo");
-    strcpy(personajes[6].atributos[1], "ojos rojos");
-    strcpy(personajes[6].atributos[2], "bajo");
-    strcpy(personajes[6].atributos[3], "ropa amarilla");
-
-    // Waluigi
-    strcpy(personajes[7].nombre, "Waluigi");
-    personajes[7].num_atributos = 4;
-    strcpy(personajes[7].atributos[0], "cabello morado");
-    strcpy(personajes[7].atributos[1], "ojos morados");
-    strcpy(personajes[7].atributos[2], "alto");
-    strcpy(personajes[7].atributos[3], "ropa morada");
-
-    // Donkey Kong
-    strcpy(personajes[8].nombre, "Donkey Kong");
-    personajes[8].num_atributos = 3;
-    strcpy(personajes[8].atributos[0], "cabello marrón");
-    strcpy(personajes[8].atributos[1], "ojos oscuros");
-    strcpy(personajes[8].atributos[2], "gigante");
-
-    // Toadette
-    strcpy(personajes[9].nombre, "Toadette");
-    personajes[9].num_atributos = 3;
-    strcpy(personajes[9].atributos[0], "cabello rosa");
-    strcpy(personajes[9].atributos[1], "ojos rosados");
-    strcpy(personajes[9].atributos[2], "baja");
-    reiniciar_juego(); // Seleccionar un personaje inicial
+    // Copiar los personajes inicializados al array global
+    for (int i = 0; i < num_personajes; i++) {
+        personajes[i] = personajes_inicializados[i];
+    }
 }
 
+// Función para manejar preguntas y respuestas
 void manejar_pregunta(const char* atributo, const char* valor) {
     if (personaje_actual == NULL) {
         printf("Error: No hay un personaje seleccionado.\n");
         return;
     }
 
-    printf("Pregunta: ¿El personaje tiene %s %s?\n", atributo, valor);
-    char atributo_completo[100];
-    snprintf(atributo_completo, sizeof(atributo_completo), "%s %s", atributo, valor);
-
-    for (int i = 0; i < personaje_actual->num_atributos; i++) {
-        if (strcmp(personaje_actual->atributos[i], atributo_completo) == 0) {
-            printf("Respuesta: Sí, el personaje tiene %s %s.\n", atributo, valor);
-            return;
+    // Verificar los atributos del personaje actual
+    if (strcmp(atributo, "cabello color") == 0) {
+        if (strcmp(personaje_actual->cabello.color, valor) == 0) {
+            printf("Respuesta: Sí, el personaje tiene cabello de color %s.\n", valor);
+        } else {
+            printf("Respuesta: No, el personaje no tiene cabello de color %s.\n", valor);
         }
+    } else if (strcmp(atributo, "cabello largura") == 0) {
+        if (strcmp(personaje_actual->cabello.largura, valor) == 0) {
+            printf("Respuesta: Sí, el personaje tiene cabello %s.\n", valor);
+        } else {
+            printf("Respuesta: No, el personaje no tiene cabello %s.\n", valor);
+        }
+    } else if (strcmp(atributo, "cabello tipo") == 0) {
+        if (strcmp(personaje_actual->cabello.tipo, valor) == 0) {
+            printf("Respuesta: Sí, el personaje tiene cabello %s.\n", valor);
+        } else {
+            printf("Respuesta: No, el personaje no tiene cabello %s.\n", valor);
+        }
+    } else if (strcmp(atributo, "vello facial color") == 0) {
+        if (strcmp(personaje_actual->vello_facial.color, valor) == 0) {
+            printf("Respuesta: Sí, el personaje tiene vello facial de color %s.\n", valor);
+        } else {
+            printf("Respuesta: No, el personaje no tiene vello facial de color %s.\n", valor);
+        }
+    } else if (strcmp(atributo, "vello facial tipo") == 0) {
+        if (strcmp(personaje_actual->vello_facial.tipo, valor) == 0) {
+            printf("Respuesta: Sí, el personaje tiene %s.\n", valor);
+        } else {
+            printf("Respuesta: No, el personaje no tiene %s.\n", valor);
+        }
+    } else if (strcmp(atributo, "nariz") == 0) {
+        if (strcmp(personaje_actual->nariz, valor) == 0) {
+            printf("Respuesta: Sí, el personaje tiene nariz %s.\n", valor);
+        } else {
+            printf("Respuesta: No, el personaje no tiene nariz %s.\n", valor);
+        }
+    } else if (strcmp(atributo, "labios") == 0) {
+        if (strcmp(personaje_actual->labios, valor) == 0) {
+            printf("Respuesta: Sí, el personaje tiene labios %s.\n", valor);
+        } else {
+            printf("Respuesta: No, el personaje no tiene labios %s.\n", valor);
+        }
+    } else if (strcmp(atributo, "ojos") == 0) {
+        if (strcmp(personaje_actual->ojos, valor) == 0) {
+            printf("Respuesta: Sí, el personaje tiene ojos %s.\n", valor);
+        } else {
+            printf("Respuesta: No, el personaje no tiene ojos %s.\n", valor);
+        }
+    } else if (strcmp(atributo, "complemento") == 0) {
+        if (strcmp(personaje_actual->complemento, valor) == 0) {
+            printf("Respuesta: Sí, el personaje lleva %s.\n", valor);
+        } else {
+            printf("Respuesta: No, el personaje no lleva %s.\n", valor);
+        }
+    } else if (strcmp(atributo, "sexo") == 0) {
+        if (strcmp(personaje_actual->sexo, valor) == 0) {
+            printf("Respuesta: Sí, el personaje es %s.\n", valor);
+        } else {
+            printf("Respuesta: No, el personaje no es %s.\n", valor);
+        }
+    } else {
+        printf("Atributo desconocido.\n");
     }
-    printf("Respuesta: No, el personaje no tiene %s %s.\n", atributo, valor);
 }
 
+
+
+// Función para manejar adivinanzas
 void manejar_adivinanza(const char* nombre) {
     printf("Intento: ¿El personaje es %s?\n", nombre);
 
@@ -126,6 +138,7 @@ void manejar_adivinanza(const char* nombre) {
     }
 }
 
+// Función para mostrar la lista de personajes
 void mostrar_lista_personajes() {
     printf("Lista de personajes:\n");
     for (int i = 0; i < num_personajes; i++) {
@@ -133,6 +146,7 @@ void mostrar_lista_personajes() {
     }
 }
 
+// Función para reiniciar el juego y seleccionar un nuevo personaje
 void reiniciar_juego() {
     srand(time(NULL));
     int indice = rand() % num_personajes;
@@ -141,6 +155,7 @@ void reiniciar_juego() {
     printf("Un nuevo personaje ha sido seleccionado. ¡Comienza el juego!\n");
 }
 
+// Función para salir del juego
 void salir_juego() {
     printf("Gracias por jugar. ¡Hasta luego!\n");
     exit(0);

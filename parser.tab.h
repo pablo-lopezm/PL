@@ -58,10 +58,25 @@ extern int yydebug;
     REINICIAR = 259,               /* REINICIAR  */
     PREGUNTA = 260,                /* PREGUNTA  */
     LISTA = 261,                   /* LISTA  */
-    NOMBRE = 262,                  /* NOMBRE  */
-    TIENE = 263,                   /* TIENE  */
-    ES = 264,                      /* ES  */
-    ISIGN = 265                    /* ISIGN  */
+    TIENE = 262,                   /* TIENE  */
+    ES = 263,                      /* ES  */
+    LLEVA = 264,                   /* LLEVA  */
+    ISIGN = 265,                   /* ISIGN  */
+    CABELLO = 266,                 /* CABELLO  */
+    VELLO_FACIAL = 267,            /* VELLO_FACIAL  */
+    NARIZ = 268,                   /* NARIZ  */
+    LABIOS = 269,                  /* LABIOS  */
+    OJOS = 270,                    /* OJOS  */
+    SEXO = 271,                    /* SEXO  */
+    COMPLEMENTO = 272,             /* COMPLEMENTO  */
+    LARGURA = 273,                 /* LARGURA  */
+    COLOR = 274,                   /* COLOR  */
+    TIPO = 275,                    /* TIPO  */
+    TIPO_NARIZ = 276,              /* TIPO_NARIZ  */
+    TIPO_VELLO = 277,              /* TIPO_VELLO  */
+    TIPO_LABIO = 278,              /* TIPO_LABIO  */
+    TIPO_COMPLEMENTO = 279,        /* TIPO_COMPLEMENTO  */
+    NOMBRE = 280                   /* NOMBRE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -74,7 +89,7 @@ union YYSTYPE
 
     char* sval;
 
-#line 78 "parser.tab.h"
+#line 93 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

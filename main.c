@@ -9,6 +9,7 @@ extern int yyparse();
 int main() {
     // Inicializar personajes o cualquier estado necesario para el juego
     inicializar_personajes();
+    reiniciar_juego();
 
     printf("Bienvenido a '¿Quién es quién?'\n");
     printf("Usa comandos como:\n");
@@ -19,9 +20,8 @@ int main() {
     printf("- Salir: salir\n");
 
     while (1) {
-        printf("\n> ");  // Indicador de entrada
+        printf("\n> "); 
         if (yyparse() != 0) {
-            // Si `yyparse` encuentra un error crítico, salimos del bucle
             fprintf(stderr, "Ocurrió un error. Finalizando el programa.\n");
             break;
         }
