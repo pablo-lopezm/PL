@@ -22,14 +22,15 @@ nariz        nariz
 labios       labios
 ojos         ojos
 
-sexo         (hombre|mujer)
-color        (negro|blanco|rubio|castaño|pelirrojo|marrones|azules|verdes|rosado|gris)
-largura      (corto|largo|calvo)
-tipo         (liso|rizado)
-tipo_vello   (barba|bigote|sin_vello)
-tipo_nariz   (grande|pequeña)
-tipo_labios  (gruesos|finos)
-complemento  (gorro|sombrero|lazos|pendientes|gafas|corbata)
+sexo                (hombre|mujer)
+color               (negro|blanco|rubio|castaño|pelirrojo|marrones|azules|verdes|rosado|gris)
+largura             (corto|largo|calvo)
+tipo                (liso|rizado)
+tipo_vello_facial   (barba|bigote|sin_vello)
+tipo_nariz          (grande|pequeña)
+tipo_labios         (gruesos|finos)
+complemento         (gorro|sombrero|lazos|pendientes|gafas|corbata)
+borra               (borra|elimina)
 
 nombre       [a-zA-Z][a-zA-Z]*  
 
@@ -42,6 +43,7 @@ nombre       [a-zA-Z][a-zA-Z]*
 {tiene}          { return TIENE; }
 {lleva}          { return LLEVA; }
 {es}             { return ES; }
+{borra}[ \t]+a   { return BORRA;}
 "?"              { return ISIGN; }
 {cabello}        { return CABELLO; }
 {vello_facial}   { return VELLO_FACIAL; }
@@ -49,14 +51,14 @@ nombre       [a-zA-Z][a-zA-Z]*
 {labios}         { return LABIOS; }
 {ojos}           { return OJOS; }
 
-{sexo}           { yylval.sval = strdup(yytext); return SEXO; }
-{color}          { yylval.sval = strdup(yytext); return COLOR; }
-{largura}        { yylval.sval = strdup(yytext); return LARGURA; }
-{tipo}           { yylval.sval = strdup(yytext); return TIPO; }
-{tipo_vello}     { yylval.sval = strdup(yytext); return TIPO_VELLO; }
-{tipo_nariz}     { yylval.sval = strdup(yytext); return TIPO_NARIZ; }
-{tipo_labios}    { yylval.sval = strdup(yytext); return TIPO_LABIO; }
-{complemento}    { yylval.sval = strdup(yytext); return COMPLEMENTO; }
+{sexo}                  { yylval.sval = strdup(yytext); return SEXO; }
+{color}                 { yylval.sval = strdup(yytext); return COLOR; }
+{largura}               { yylval.sval = strdup(yytext); return LARGURA; }
+{tipo}                  { yylval.sval = strdup(yytext); return TIPO; }
+{tipo_vello_facial}     { yylval.sval = strdup(yytext); return TIPO_VELLO; }
+{tipo_nariz}            { yylval.sval = strdup(yytext); return TIPO_NARIZ; }
+{tipo_labios}           { yylval.sval = strdup(yytext); return TIPO_LABIO; }
+{complemento}           { yylval.sval = strdup(yytext); return COMPLEMENTO; }
 
 {nombre}         { yylval.sval = strdup(yytext); return NOMBRE; }
 

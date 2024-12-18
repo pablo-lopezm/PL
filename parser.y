@@ -16,7 +16,7 @@ void yyerror(const char *s);
     char* sval;
 }
 
-%token <sval> SALIR REINICIAR PREGUNTA LISTA TIENE ES LLEVA ISIGN
+%token <sval> SALIR REINICIAR PREGUNTA LISTA TIENE ES LLEVA ISIGN BORRA
 %token <sval> CABELLO VELLO_FACIAL NARIZ LABIOS OJOS SEXO COMPLEMENTO
 %token <sval> LARGURA COLOR TIPO
 %token <sval> TIPO_NARIZ TIPO_VELLO TIPO_LABIO TIPO_COMPLEMENTO NOMBRE
@@ -42,6 +42,11 @@ comandos:
     REINICIAR { reiniciar_juego(); return 0; }
     | SALIR { salir_juego(); }
     | LISTA { mostrar_lista_personajes(); return 0; }
+    | BORRA NOMBRE {
+        eliminar_personaje_por_nombre($2);
+        mostrar_lista_personajes();
+        return 0;
+        }
     | error {
         yyerror("Comando no reconocido. Los comandos permitidos son: 'REINICIAR', 'SALIR', 'LISTA'.");
         return 0;

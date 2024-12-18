@@ -146,6 +146,35 @@ void mostrar_lista_personajes() {
     }
 }
 
+void eliminar_personaje_por_nombre(const char* nombre) {
+    for (int i = 0; i < num_personajes; i++) {
+        if (strcmp(personajes[i].nombre, nombre) == 0) {
+            eliminar_personaje(i);
+            printf("El personaje '%s' ha sido eliminado.\n", nombre);
+            return;
+        }
+    }
+    printf("Error: Personaje '%s' no encontrado.\n", nombre);
+}
+
+void eliminar_personaje(int indice) {
+    if (indice < 0 || indice >= num_personajes) {
+        printf("Error: Índice fuera de rango.\n");
+        return;
+    }
+
+    // Desplazar los elementos a la izquierda
+    for (int i = indice; i < num_personajes - 1; i++) {
+        personajes[i] = personajes[i + 1];
+    }
+
+    // Decrementar el número de personajes
+    num_personajes--;
+
+    printf("El personaje en la posición %d ha sido eliminado.\n", indice);
+}
+
+
 // Función para reiniciar el juego y seleccionar un nuevo personaje
 void reiniciar_juego() {
     srand(time(NULL));
