@@ -8,131 +8,100 @@
 typedef struct {
     char nombre[50];
     struct {
-        char color[20];    // Color del cabello
-        char largura[20];  // Largura del cabello (corto, largo, calvo)
-        char tipo[20];     // Tipo del cabello (liso, rizado)
+        char color[20];
+        char largura[20];
+        char tipo[20];
     } cabello;
     struct {
-        char color[20];    // Color del vello facial
-        char tipo[20];     // Tipo del vello facial (barba, bigote, etc.)
+        char color[20];
+        char tipo[20];
     } vello_facial;
-    char nariz[20];        // Nariz grande o pequeña
-    char labios[20];       // Labios gruesos o finos
-    char ojos[20];         // Color de los ojos
-    char complemento[50];  // Complemento (ej. gafas, sombrero, etc.)
-    char sexo[10];         // Sexo del personaje
+    char nariz[20];
+    char labios[20];
+    char ojos[20];
+    char complemento[50];
+    char sexo[10];
 } Personaje;
 
 // Variables globales
 Personaje personajes[10];
 int num_personajes = 0;
-Personaje* personaje_actual = NULL; // Personaje seleccionado
+Personaje* personaje_actual = NULL;
 
-// Función para inicializar los personajes con los datos especificados
+// Función para inicializar los personajes
 void inicializar_personajes() {
     num_personajes = 10;
-
     Personaje personajes_inicializados[10] = {
-        {"Alex", {"negro", "corto", "liso"}, {"negro", "bigote"}, "pequeña", "gruesos", "marrones", "", "masculino"},
-        {"Alfred", {"pelirrojo", "largo", "liso"}, {"pelirrojo", "bigote"}, "pequeña", "finos", "azules", "", "masculino"},
-        {"Anita", {"rubio", "largo", "liso"}, {"", ""}, "pequeña", "finos", "azules", "lazos", "femenino"},
-        {"Anne", {"castaño", "largo", "rizado"}, {"", ""}, "grande", "finos", "marrones", "pendientes", "femenino"},
-        {"Bernard", {"castaño", "corto", "liso"}, {"", ""}, "grande", "finos", "marrones", "gorro", "masculino"},
-        {"David", {"rubio", "corto", "liso"}, {"rubio", "barba"}, "pequeña", "gruesos", "marrones", "", "masculino"},
-        {"Eric", {"rubio", "corto", "liso"}, {"", ""}, "pequeña", "gruesos", "negros", "gorro policía", "masculino"},
-        {"Frans", {"pelirrojo", "corto", "rizado"}, {"", ""}, "pequeña", "finos", "marrones", "", "masculino"},
-        {"George", {"blanco", "corto", "liso"}, {"", ""}, "pequeña", "gruesos", "marrones", "sombrero", "masculino"},
-        {"Herman", {"", "calvo", ""}, {"", ""}, "grande", "gruesos", "marrones", "", "masculino"}
+        {"Alex", {"negro", "corto", "liso"}, {"negro", "bigote"}, "pequeña", "gruesos", "marrones", "", "hombre"},
+        {"Alfred", {"pelirrojo", "largo", "liso"}, {"pelirrojo", "bigote"}, "pequeña", "finos", "azules", "", "hombre"},
+        {"Anita", {"rubio", "largo", "liso"}, {"", ""}, "pequeña", "finos", "azules", "lazos", "mujer"},
+        {"Anne", {"castaño", "largo", "rizado"}, {"", ""}, "grande", "finos", "marrones", "pendientes", "mujer"},
+        {"Bernard", {"castaño", "corto", "liso"}, {"", ""}, "grande", "finos", "marrones", "gorro", "hombre"},
+        {"David", {"rubio", "corto", "liso"}, {"rubio", "barba"}, "pequeña", "gruesos", "marrones", "", "hombre"},
+        {"Eric", {"rubio", "corto", "liso"}, {"", ""}, "pequeña", "gruesos", "negros", "gorro policía", "hombre"},
+        {"Frans", {"pelirrojo", "corto", "rizado"}, {"", ""}, "pequeña", "finos", "marrones", "", "hombre"},
+        {"George", {"blanco", "corto", "liso"}, {"", ""}, "pequeña", "gruesos", "marrones", "sombrero", "hombre"},
+        {"Herman", {"", "calvo", ""}, {"", ""}, "grande", "gruesos", "marrones", "", "hombre"}
     };
 
-    // Copiar los personajes inicializados al array global
     for (int i = 0; i < num_personajes; i++) {
         personajes[i] = personajes_inicializados[i];
     }
 }
 
-// Función para manejar preguntas y respuestas
+// Función para evaluar condiciones
+int evaluar_condicion(const char* atributo, const char* valor) {
+    if (personaje_actual == NULL) {
+        return 0; // No hay personaje seleccionado
+    }
+
+    if (strcmp(atributo, "cabello color") == 0) {
+        return strcmp(personaje_actual->cabello.color, valor) == 0;
+    } else if (strcmp(atributo, "cabello largura") == 0) {
+        return strcmp(personaje_actual->cabello.largura, valor) == 0;
+    } else if (strcmp(atributo, "cabello tipo") == 0) {
+        return strcmp(personaje_actual->cabello.tipo, valor) == 0;
+    } else if (strcmp(atributo, "vello facial color") == 0) {
+        return strcmp(personaje_actual->vello_facial.color, valor) == 0;
+    } else if (strcmp(atributo, "vello facial tipo") == 0) {
+        return strcmp(personaje_actual->vello_facial.tipo, valor) == 0;
+    } else if (strcmp(atributo, "nariz") == 0) {
+        return strcmp(personaje_actual->nariz, valor) == 0;
+    } else if (strcmp(atributo, "labios") == 0) {
+        return strcmp(personaje_actual->labios, valor) == 0;
+    } else if (strcmp(atributo, "ojos") == 0) {
+        return strcmp(personaje_actual->ojos, valor) == 0;
+    } else if (strcmp(atributo, "complemento") == 0) {
+        return strcmp(personaje_actual->complemento, valor) == 0;
+    } else if (strcmp(atributo, "sexo") == 0) {
+        return strcmp(personaje_actual->sexo, valor) == 0;
+    } else {
+        return 0; // Caso desconocido
+    }
+}
+
+// Función para manejar preguntas
 void manejar_pregunta(const char* atributo, const char* valor) {
     if (personaje_actual == NULL) {
         printf("Error: No hay un personaje seleccionado.\n");
         return;
     }
 
-    // Verificar los atributos del personaje actual
     if (strcmp(atributo, "cabello color") == 0) {
-        if (strcmp(personaje_actual->cabello.color, valor) == 0) {
-            printf("Respuesta: Sí, el personaje tiene cabello de color %s.\n", valor);
-        } else {
-            printf("Respuesta: No, el personaje no tiene cabello de color %s.\n", valor);
-        }
-    } else if (strcmp(atributo, "cabello largura") == 0) {
-        if (strcmp(personaje_actual->cabello.largura, valor) == 0) {
-            printf("Respuesta: Sí, el personaje tiene cabello %s.\n", valor);
-        } else {
-            printf("Respuesta: No, el personaje no tiene cabello %s.\n", valor);
-        }
-    } else if (strcmp(atributo, "cabello tipo") == 0) {
-        if (strcmp(personaje_actual->cabello.tipo, valor) == 0) {
-            printf("Respuesta: Sí, el personaje tiene cabello %s.\n", valor);
-        } else {
-            printf("Respuesta: No, el personaje no tiene cabello %s.\n", valor);
-        }
-    } else if (strcmp(atributo, "vello facial color") == 0) {
-        if (strcmp(personaje_actual->vello_facial.color, valor) == 0) {
-            printf("Respuesta: Sí, el personaje tiene vello facial de color %s.\n", valor);
-        } else {
-            printf("Respuesta: No, el personaje no tiene vello facial de color %s.\n", valor);
-        }
-    } else if (strcmp(atributo, "vello facial tipo") == 0) {
-        if (strcmp(personaje_actual->vello_facial.tipo, valor) == 0) {
-            printf("Respuesta: Sí, el personaje tiene %s.\n", valor);
-        } else {
-            printf("Respuesta: No, el personaje no tiene %s.\n", valor);
-        }
-    } else if (strcmp(atributo, "nariz") == 0) {
-        if (strcmp(personaje_actual->nariz, valor) == 0) {
-            printf("Respuesta: Sí, el personaje tiene nariz %s.\n", valor);
-        } else {
-            printf("Respuesta: No, el personaje no tiene nariz %s.\n", valor);
-        }
-    } else if (strcmp(atributo, "labios") == 0) {
-        if (strcmp(personaje_actual->labios, valor) == 0) {
-            printf("Respuesta: Sí, el personaje tiene labios %s.\n", valor);
-        } else {
-            printf("Respuesta: No, el personaje no tiene labios %s.\n", valor);
-        }
-    } else if (strcmp(atributo, "ojos") == 0) {
-        if (strcmp(personaje_actual->ojos, valor) == 0) {
-            printf("Respuesta: Sí, el personaje tiene ojos %s.\n", valor);
-        } else {
-            printf("Respuesta: No, el personaje no tiene ojos %s.\n", valor);
-        }
-    } else if (strcmp(atributo, "complemento") == 0) {
-        if (strcmp(personaje_actual->complemento, valor) == 0) {
-            printf("Respuesta: Sí, el personaje lleva %s.\n", valor);
-        } else {
-            printf("Respuesta: No, el personaje no lleva %s.\n", valor);
-        }
+        printf("%s\n", strcmp(personaje_actual->cabello.color, valor) == 0 ? "Sí" : "No");
     } else if (strcmp(atributo, "sexo") == 0) {
-        if (strcmp(personaje_actual->sexo, valor) == 0) {
-            printf("Respuesta: Sí, el personaje es %s.\n", valor);
-        } else {
-            printf("Respuesta: No, el personaje no es %s.\n", valor);
-        }
+        printf("%s\n", strcmp(personaje_actual->sexo, valor) == 0 ? "Sí" : "No");
     } else {
-        printf("Atributo desconocido.\n");
+        printf("Atributo desconocido: %s.\n", atributo);
     }
 }
 
-
-
-// Función para manejar adivinanzas
+// Función para manejar intentos de adivinanza
 void manejar_adivinanza(const char* nombre) {
     printf("Intento: ¿El personaje es %s?\n", nombre);
-
     if (personaje_actual != NULL && strcmp(personaje_actual->nombre, nombre) == 0) {
         printf("¡Correcto! El personaje era %s.\n", personaje_actual->nombre);
-        reiniciar_juego(); // Elegir un nuevo personaje
+        reiniciar_juego();
     } else {
         printf("No, el personaje no es %s. ¡Sigue intentando!\n", nombre);
     }
@@ -146,9 +115,28 @@ void mostrar_lista_personajes() {
     }
 }
 
+// Función para eliminar un personaje por su índice
+void eliminar_personaje(int indice) {
+    if (indice < 0 || indice >= num_personajes) {
+        printf("Error: Índice fuera de rango.\n");
+        return;
+    }
+
+    for (int i = indice; i < num_personajes - 1; i++) {
+        personajes[i] = personajes[i + 1];
+    }
+    num_personajes--;
+}
+
+// Función para eliminar un personaje por su nombre
 void eliminar_personaje_por_nombre(const char* nombre) {
     for (int i = 0; i < num_personajes; i++) {
         if (strcmp(personajes[i].nombre, nombre) == 0) {
+            if(strcmp((*personaje_actual).nombre, nombre) == 0) {
+                 printf("¡OH NO! Has eliminado a %s, que era el personaje seleccionado. Game over.\n", nombre);
+                 reiniciar_juego();
+                 return;
+            }
             eliminar_personaje(i);
             printf("El personaje '%s' ha sido eliminado.\n", nombre);
             return;
@@ -157,30 +145,12 @@ void eliminar_personaje_por_nombre(const char* nombre) {
     printf("Error: Personaje '%s' no encontrado.\n", nombre);
 }
 
-void eliminar_personaje(int indice) {
-    if (indice < 0 || indice >= num_personajes) {
-        printf("Error: Índice fuera de rango.\n");
-        return;
-    }
-
-    // Desplazar los elementos a la izquierda
-    for (int i = indice; i < num_personajes - 1; i++) {
-        personajes[i] = personajes[i + 1];
-    }
-
-    // Decrementar el número de personajes
-    num_personajes--;
-
-    printf("El personaje en la posición %d ha sido eliminado.\n", indice);
-}
-
-
-// Función para reiniciar el juego y seleccionar un nuevo personaje
+// Función para reiniciar el juego
 void reiniciar_juego() {
+    inicializar_personajes();
     srand(time(NULL));
     int indice = rand() % num_personajes;
     personaje_actual = &personajes[indice];
-
     printf("Un nuevo personaje ha sido seleccionado. ¡Comienza el juego!\n");
 }
 
@@ -188,4 +158,27 @@ void reiniciar_juego() {
 void salir_juego() {
     printf("Gracias por jugar. ¡Hasta luego!\n");
     exit(0);
+}
+
+void mostrar_ayuda() {
+    printf("Comandos permitidos:\n");
+    printf("  reiniciar       - Reinicia el juego.\n");
+    printf("  salir           - Sale del juego.\n");
+    printf("  lista           - Muestra la lista de personajes.\n");
+    printf("  elimina a <nombre> - Elimina un personaje por su nombre.\n");
+    printf("  ayuda           - Muestra esta ayuda.\n\n");
+
+    printf("Ejemplos de frases permitidas para preguntas:\n");
+    printf(" ¿El personaje tiene cabello castaño?\n");
+    printf(" ¿El personaje tiene labios gruesos?\n");
+    printf(" ¿El personaje lleva complemento?\n");
+    printf(" ¿El personaje es mujer?\n");
+    printf("Ejemeplo de frases permitidas que incorporan disyunciones y conjunciones:\n");
+    printf(" ¿El personaje es hombre y tiene sombrero?");
+    printf(" ¿El personaje tiene cabello negro o es mujer?");
+
+    printf("Errores comunes:\n");
+    printf("  - Usar palabras clave incorrectas o mal aplicadas.\n");
+    printf("  - No especificar correctamente el atributo o el valor.\n");
+    printf("  - Comandos no reconocidos o mal escritos.\n");
 }

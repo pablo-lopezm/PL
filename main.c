@@ -6,6 +6,12 @@
 extern int yylex();
 extern int yyparse();
 
+void limpiar_buffer() {
+    // Limpiar el buffer de entrada hasta el final de la línea
+    char ch;
+    while ((ch = getchar()) != '\n' && ch != EOF);
+}
+
 int main() {
     // Inicializar personajes o cualquier estado necesario para el juego
     inicializar_personajes();
@@ -22,8 +28,7 @@ int main() {
     while (1) {
         printf("\n> "); 
         if (yyparse() != 0) {
-            fprintf(stderr, "Ocurrió un error. Finalizando el programa.\n");
-            break;
+            limpiar_buffer();
         }
     }
 

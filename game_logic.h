@@ -8,6 +8,7 @@ void manejar_respuesta(const char* respuesta);
 void manejar_adivinanza(const char* nombre);
 void eliminar_personaje(int indice);
 void eliminar_personaje_por_nombre(const char* nombre);
+void mostrar_ayuda();
 void reiniciar_juego(); // Personaje al azar
 void salir_juego();
 

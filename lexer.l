@@ -9,15 +9,18 @@
 
 salir        salir
 reiniciar    reiniciar
+ayuda        ayuda
 lista        lista
 tiene        tiene
 es           es
 lleva        lleva
 y            y 
 o            o
+a            a
 
 cabello      cabello
-vello_facial vello_facial
+vello        vello
+facial       facial
 nariz        nariz
 labios       labios
 ojos         ojos
@@ -30,7 +33,7 @@ tipo_vello_facial   (barba|bigote|sin_vello)
 tipo_nariz          (grande|pequeña)
 tipo_labios         (gruesos|finos)
 complemento         (gorro|sombrero|lazos|pendientes|gafas|corbata)
-borra               (borra|elimina)
+elimina               (elimina)
 
 nombre       [a-zA-Z][a-zA-Z]*  
 
@@ -39,14 +42,19 @@ nombre       [a-zA-Z][a-zA-Z]*
 {salir}          { return SALIR; }
 {reiniciar}      { return REINICIAR; }
 {lista}          { return LISTA; }
+{ayuda}          { return AYUDA; }
 "¿El personaje"  { return PREGUNTA; }
 {tiene}          { return TIENE; }
 {lleva}          { return LLEVA; }
 {es}             { return ES; }
-{borra}[ \t]+a   { return BORRA;}
+{y}              { return Y; }
+{o}              { return O;}
+{a}              { return A; }
+{elimina}        { return ELIMINA;}
 "?"              { return ISIGN; }
 {cabello}        { return CABELLO; }
-{vello_facial}   { return VELLO_FACIAL; }
+{vello}          { return VELLO; }
+{facial}         { return FACIAL; }
 {nariz}          { return NARIZ; }
 {labios}         { return LABIOS; }
 {ojos}           { return OJOS; }
