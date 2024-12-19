@@ -1,0 +1,42 @@
+Memoria de la Práctica 2: Validador Simple de Sintaxis de un fichero XML
+
+Autores: Iker Seoane Currás, Pablo López Martínez
+
+Objetivo: 
+El objetivo principal de esta práctica es desarrollar una aplicación interactiva en la terminal que implemente el 
+juego "¿Quién es quién?" como proyecto final para la asignatura de Procesamiento de Lenguajes. 
+Este proyecto se enfocará en la creación de un analizador léxico mediante FLEX y un analizador sintáctico a través 
+de Bison, integrando conceptos fundamentales de la materia.
+
+La aplicación permitirá a los usuarios formular preguntas estructuradas sobre los atributos de los personajes, como 
+"¿El personaje lleva sombrero?", así como realizar intentos para adivinar directamente el personaje, por ejemplo, 
+"¿El personaje es Alex?". Entre las funcionalidades avanzadas que se deben implementar destacan:
+
+    - Preguntas complejas: Uso de conjunciones y disyunciones para combinar múltiples atributos en una sola consulta, como "¿El personaje lleva gafas o tiene el pelo rubio?" o "¿El personaje tiene bigote y viste de azul?".
+    - Gestión de errores: Detección y manejo de sentencias mal formadas, proporcionando mensajes claros y específicos que indiquen al usuario cómo corregir su consulta.
+    - Comandos adicionales: Implementación de funcionalidades extra como:
+        Reinicio del juego.
+        Visualización de la lista de personajes disponibles.
+        Eliminación de personajes.
+        Acceso a un comando de ayuda para facilitar la interacción con el juego.
+
+El propósito de la práctica es demostrar la capacidad de diseñar e implementar un 
+sistema de procesamiento de lenguajes que combine análisis léxico y sintáctico para manejar un lenguaje específico.
+
+
+Realización de la práctica:
+La implementación de este proyecto se llevó a cabo a través de diferentes módulos que cumplen
+fuciones específicas para lograr el objetivo final. A continuación, se detalla cómo se realizó cada parte del proyecto:
+    - Lógica del juego: Los ficheros game_logic.c y game_logic.h contiene la estructura central del juego, incluyendo las definiciones 
+      de los personajes y las funciones para interactuar con ellos. Los personajes están representados por una estructura que define atributos
+      como el cabello, ojos, nariz, vello facial y complementos. Las principales funciones implementadas en este módulo serían la inicialización de los personajes y
+      la gestión del juego, la cual se basa en la selección de un personaje de inicio y se permite hacer preguntas y adivinanzas sobre ese personaje.
+    - Análisis léxico: Utilizando FLEX, se creó el archivo lexer.l, encargado de analizar la entrada del usuario y dividirla en tokens que representan las partes 
+      fundamentales de las frases.
+    - Análisis sintáctico: Con Bison, se implementó el archivo parser.y, que define la gramática del juego. Este componente valida la estructura de las frases ingresadas 
+      por el usuario, garantizando que sean sintácticamente correctas. Tambien se encarga del manejo de los errores en el caso de la introducción de frases incorrectas.
+    - Flujo principal: El fichero main.c se encarga de llamar al analizador sintáctico cada vez que se introduzca una nueva frase y es el que se encarga de llevar el flujo de 
+      ejecución del programa.
+
+Problemáticas enfrentadas durante la práctica: 
+
