@@ -6,12 +6,6 @@
 extern int yylex();
 extern int yyparse();
 
-void limpiar_buffer() {
-    // Limpiar el buffer de entrada hasta el final de la línea
-    char ch;
-    while ((ch = getchar()) != '\n' && ch != EOF);
-}
-
 int main() {
     // Inicializar personajes o cualquier estado necesario para el juego
     inicializar_personajes();
@@ -23,12 +17,13 @@ int main() {
     printf("- Intenta adivinar: ¿El personaje es Mario?\n");
     printf("- Ver lista: lista\n");
     printf("- Reiniciar el juego: reiniciar\n");
+    printf("- Ayuda: ayuda\n");
     printf("- Salir: salir\n");
 
     while (1) {
         printf("\n> "); 
         if (yyparse() != 0) {
-            limpiar_buffer();
+    
         }
     }
 

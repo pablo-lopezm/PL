@@ -1,16 +1,17 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "parser.tab.h"  // Incluir el archivo generado por el parser
-
+#include "parser.tab.h" 
+void limpiar_buffer();
 %}
 
 %option noyywrap
+%option noinput nounput
 
-salir        salir
-reiniciar    reiniciar
-ayuda        ayuda
-lista        lista
+salir        (salir|Salir)
+reiniciar    (reiniciar|Reiniciar)
+ayuda        (ayuda|Ayuda)
+lista        (lista|Lista)
 tiene        tiene
 es           es
 lleva        lleva
@@ -19,23 +20,21 @@ o            o
 a            a
 
 cabello      cabello
-vello        vello
-facial       facial
 nariz        nariz
 labios       labios
 ojos         ojos
 
 sexo                (hombre|mujer)
-color               (negro|blanco|rubio|castaño|pelirrojo|marrones|azules|verdes|rosado|gris)
+color               (negro|negra|blanco|blanca|rubio|rubia|castaño|castaña|pelirrojo|pelirroja|marrones|azules|verdes|rosado|gris)
 largura             (corto|largo|calvo)
 tipo                (liso|rizado)
-tipo_vello_facial   (barba|bigote|sin_vello)
+vello_facial        (barba|bigote|sin_vello)
 tipo_nariz          (grande|pequeña)
 tipo_labios         (gruesos|finos)
-complemento         (gorro|sombrero|lazos|pendientes|gafas|corbata)
-elimina               (elimina)
+complemento         (gorro|sombrero|lazos|pendientes)
+elimina             (elimina|Elimina)
 
-nombre       [a-zA-Z][a-zA-Z]*  
+nombre       (Alex|Alfred|Anita|Anne|Bernard|David|Eric|Frans|George|Herman)
 
 %%
 
@@ -53,8 +52,6 @@ nombre       [a-zA-Z][a-zA-Z]*
 {elimina}        { return ELIMINA;}
 "?"              { return ISIGN; }
 {cabello}        { return CABELLO; }
-{vello}          { return VELLO; }
-{facial}         { return FACIAL; }
 {nariz}          { return NARIZ; }
 {labios}         { return LABIOS; }
 {ojos}           { return OJOS; }
@@ -63,7 +60,7 @@ nombre       [a-zA-Z][a-zA-Z]*
 {color}                 { yylval.sval = strdup(yytext); return COLOR; }
 {largura}               { yylval.sval = strdup(yytext); return LARGURA; }
 {tipo}                  { yylval.sval = strdup(yytext); return TIPO; }
-{tipo_vello_facial}     { yylval.sval = strdup(yytext); return TIPO_VELLO; }
+{vello_facial}          { yylval.sval = strdup(yytext); return TIPO_VELLO; }
 {tipo_nariz}            { yylval.sval = strdup(yytext); return TIPO_NARIZ; }
 {tipo_labios}           { yylval.sval = strdup(yytext); return TIPO_LABIO; }
 {complemento}           { yylval.sval = strdup(yytext); return COMPLEMENTO; }
@@ -72,6 +69,9 @@ nombre       [a-zA-Z][a-zA-Z]*
 
 [ \t\r\n]+        { /* Ignorar espacios, tabulaciones y saltos de línea */ }
 
-.                { printf("Carácter desconocido: %c\n", yytext[0]); }
-
+.                 {}
 %%
+
+void limpiar_buffer() {
+    yy_flush_buffer(YY_CURRENT_BUFFER);
+}

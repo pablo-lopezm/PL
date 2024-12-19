@@ -37,11 +37,11 @@ void inicializar_personajes() {
         {"Anita", {"rubio", "largo", "liso"}, {"", ""}, "pequeña", "finos", "azules", "lazos", "mujer"},
         {"Anne", {"castaño", "largo", "rizado"}, {"", ""}, "grande", "finos", "marrones", "pendientes", "mujer"},
         {"Bernard", {"castaño", "corto", "liso"}, {"", ""}, "grande", "finos", "marrones", "gorro", "hombre"},
-        {"David", {"rubio", "corto", "liso"}, {"rubio", "barba"}, "pequeña", "gruesos", "marrones", "", "hombre"},
-        {"Eric", {"rubio", "corto", "liso"}, {"", ""}, "pequeña", "gruesos", "negros", "gorro policía", "hombre"},
+        {"David", {"rubio", "corto", "liso"}, {"rubia", "barba"}, "pequeña", "gruesos", "marrones", "", "hombre"},
+        {"Eric", {"rubio", "corto", "liso"}, {"", ""}, "pequeña", "gruesos", "negros", "sombrero", "hombre"},
         {"Frans", {"pelirrojo", "corto", "rizado"}, {"", ""}, "pequeña", "finos", "marrones", "", "hombre"},
         {"George", {"blanco", "corto", "liso"}, {"", ""}, "pequeña", "gruesos", "marrones", "sombrero", "hombre"},
-        {"Herman", {"", "calvo", ""}, {"", ""}, "grande", "gruesos", "marrones", "", "hombre"}
+        {"Maria", {"castaño", "largo", "liso"}, {"", ""}, "pequeña", "gruesos", "marrones", "gorro", "mujer"}
     };
 
     for (int i = 0; i < num_personajes; i++) {
@@ -132,8 +132,8 @@ void eliminar_personaje(int indice) {
 void eliminar_personaje_por_nombre(const char* nombre) {
     for (int i = 0; i < num_personajes; i++) {
         if (strcmp(personajes[i].nombre, nombre) == 0) {
-            if(strcmp((*personaje_actual).nombre, nombre) == 0) {
-                 printf("¡OH NO! Has eliminado a %s, que era el personaje seleccionado. Game over.\n", nombre);
+            if (strcmp(personaje_actual->nombre, nombre) == 0) {
+                 printf("¡OH NO! Has eliminado a %s, que era el personaje seleccionado. Game over.\n¡Intentalo otra vez! \n\n", nombre);
                  reiniciar_juego();
                  return;
             }
@@ -162,23 +162,24 @@ void salir_juego() {
 
 void mostrar_ayuda() {
     printf("Comandos permitidos:\n");
-    printf("  reiniciar       - Reinicia el juego.\n");
-    printf("  salir           - Sale del juego.\n");
-    printf("  lista           - Muestra la lista de personajes.\n");
-    printf("  elimina a <nombre> - Elimina un personaje por su nombre.\n");
-    printf("  ayuda           - Muestra esta ayuda.\n\n");
+    printf("  reiniciar                  - Reinicia el juego.\n");
+    printf("  salir                      - Sale del juego.\n");
+    printf("  lista                      - Muestra la lista de personajes.\n");
+    printf("  elimina a <nombre>         - Elimina un personaje por su nombre.\n");
+    printf("  ayuda                      - Muestra esta ayuda.\n\n");
 
     printf("Ejemplos de frases permitidas para preguntas:\n");
-    printf(" ¿El personaje tiene cabello castaño?\n");
-    printf(" ¿El personaje tiene labios gruesos?\n");
-    printf(" ¿El personaje lleva complemento?\n");
-    printf(" ¿El personaje es mujer?\n");
-    printf("Ejemeplo de frases permitidas que incorporan disyunciones y conjunciones:\n");
-    printf(" ¿El personaje es hombre y tiene sombrero?");
-    printf(" ¿El personaje tiene cabello negro o es mujer?");
+    printf("   - ¿El personaje tiene cabello castaño?\n");
+    printf("   - ¿El personaje tiene labios gruesos?\n");
+    printf("   - ¿El personaje lleva sombrero?\n");
+    printf("   - ¿El personaje es mujer?\n");
+    printf("\nEjemplos de frases permitidas que incorporan disyunciones y conjunciones:\n");
+    printf("   - ¿El personaje es hombre y tiene sombrero?\n");
+    printf("   - ¿El personaje tiene cabello negro o es mujer?\n\n");
 
     printf("Errores comunes:\n");
     printf("  - Usar palabras clave incorrectas o mal aplicadas.\n");
     printf("  - No especificar correctamente el atributo o el valor.\n");
     printf("  - Comandos no reconocidos o mal escritos.\n");
+    printf("  - Uso de verbos con atributos que no se corresponden");
 }

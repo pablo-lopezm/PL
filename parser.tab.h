@@ -68,21 +68,20 @@ extern int yydebug;
     O = 269,                       /* O  */
     A = 270,                       /* A  */
     CABELLO = 271,                 /* CABELLO  */
-    VELLO = 272,                   /* VELLO  */
-    FACIAL = 273,                  /* FACIAL  */
-    NARIZ = 274,                   /* NARIZ  */
-    LABIOS = 275,                  /* LABIOS  */
-    OJOS = 276,                    /* OJOS  */
-    SEXO = 277,                    /* SEXO  */
-    COMPLEMENTO = 278,             /* COMPLEMENTO  */
-    LARGURA = 279,                 /* LARGURA  */
-    COLOR = 280,                   /* COLOR  */
-    TIPO = 281,                    /* TIPO  */
-    TIPO_NARIZ = 282,              /* TIPO_NARIZ  */
-    TIPO_VELLO = 283,              /* TIPO_VELLO  */
-    TIPO_LABIO = 284,              /* TIPO_LABIO  */
-    TIPO_COMPLEMENTO = 285,        /* TIPO_COMPLEMENTO  */
-    NOMBRE = 286                   /* NOMBRE  */
+    TIPO_VELLO = 272,              /* TIPO_VELLO  */
+    NARIZ = 273,                   /* NARIZ  */
+    LABIOS = 274,                  /* LABIOS  */
+    OJOS = 275,                    /* OJOS  */
+    SEXO = 276,                    /* SEXO  */
+    COMPLEMENTO = 277,             /* COMPLEMENTO  */
+    LARGURA = 278,                 /* LARGURA  */
+    COLOR = 279,                   /* COLOR  */
+    TIPO = 280,                    /* TIPO  */
+    TIPO_NARIZ = 281,              /* TIPO_NARIZ  */
+    TIPO_LABIO = 282,              /* TIPO_LABIO  */
+    TIPO_COMPLEMENTO = 283,        /* TIPO_COMPLEMENTO  */
+    NOMBRE = 284,                  /* NOMBRE  */
+    ERROR = 285                    /* ERROR  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -91,12 +90,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 14 "parser.y"
+#line 16 "parser.y"
 
     char* sval;
     int bool_val; // Para almacenar los resultados de la evaluación (0 o 1)
 
-#line 100 "parser.tab.h"
+#line 99 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
