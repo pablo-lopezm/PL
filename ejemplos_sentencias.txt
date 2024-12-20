@@ -1,0 +1,7 @@
+¿El personaje lleva sombrero?
+¿El personaje es hombre?
+¿El personaje lleva pendientes?
+¿El personaje tiene barba y tiene cabello liso?
+¿El personaje tiene bigote o es mujer?
+¿El personaje es hombre y tiene bigote o lleva sombrero?
+¿El personaje es Alex?
