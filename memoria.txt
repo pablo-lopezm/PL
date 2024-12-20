@@ -10,7 +10,9 @@ de Bison, integrando conceptos fundamentales de la materia.
 
 La aplicación permitirá a los usuarios formular preguntas estructuradas sobre los atributos de los personajes, como 
 "¿El personaje lleva sombrero?", así como realizar intentos para adivinar directamente el personaje, por ejemplo, 
-"¿El personaje es Alex?". Entre las funcionalidades avanzadas que se deben implementar destacan:
+"¿El personaje es Alex?". 
+
+Entre las funcionalidades avanzadas que se deben implementar destacan:
 
     - Preguntas complejas: Uso de conjunciones y disyunciones para combinar múltiples atributos en una sola consulta, como "¿El personaje lleva gafas o tiene el pelo rubio?" o "¿El personaje tiene bigote y viste de azul?".
     - Gestión de errores: Detección y manejo de sentencias mal formadas, proporcionando mensajes claros y específicos que indiquen al usuario cómo corregir su consulta.
@@ -39,4 +41,26 @@ fuciones específicas para lograr el objetivo final. A continuación, se detalla
       ejecución del programa.
 
 Problemáticas enfrentadas durante la práctica: 
+A lo largo de la realizacion del proyecto nos hemos encontrado con diferentes obstáculos que hemos ido puliendo a medida que aumentábamos la funcionalidad y operabilidad del juego.
 
+- Problemas con el flujo del programa: 
+    Durante el desarrollo nos encontramos con problemas a la hora de introducir entradas por consola, desde entradas correctas no reconocidas a generación de errores y bloqueos no previstos. 
+    Tuvimos que implementar un bucle que permitiera escanear al lexer de forma contínua y al mismo tiempo lo hiciera de forma correcta, para ello tuvimos que indagar en cómo se gestionaban las entradas a nivel de buffer, reiniciando este cada vez que saltara un error, para que los tokens que no estuviesen procesados hasta el momento se descartaran, permitiendo continuar con el flujo.
+
+- Problemas de lenguaje y reconocimiento de preguntas:
+    El juego debía reconocer preguntas estructuradas de diferentes maneras ("¿El personaje tiene gafas?", "¿Es rubio?"), además de interpretar intentos de adivinanza. 
+    Flex y Bison fueron configurados para procesar preguntas específicas mediante tokens como ES, TIENE, ALTO, GAFAS, etc.
+    Del mismo modo, se fueron configurando los distintos tokens de complementos y características, para que aceptaran un lenguaje natural y resultaran más intuitivos.
+
+- Manejo de preguntas compuestas
+    A la hora de plantearnos cómo reconocer preguntas compuestas, nos dimos cuenta que, de la forma en la que estaba estructarado el proyecto, se hacía de una manera poco intuitiva (a la hora de hacer las preguntas) y no era capaz de procesar entradas con lenguaje natural.
+    Por lo que tuvimos que hacer varias reestructuraciones hasta encontrar una que permitiera conjunciones o disyunciones de sin introducir tokens "forzados".
+    Para solucionar esto, se diseñó la evaluación de expresiones de forma recursiva para combinar resultados en un árbol lógico, facilitando la evaluación global. Asimismo, también hubo algún problema en el manejo de las respuestas, ya que el flujo de datos esta nueva versión, complicaba mucho el mensaje, ya que al discernir entre preguntas simples y compuestas, la recursividad de la grámatica
+    complicaba generar una respuesta concreta en ambos casos, por lo que obtamos por devolver una respuesta más genérica pero correcta.
+
+- Manejo de errores: 
+    Cuando el usuario formulaba una pregunta mal estructurada, el sistema fallaba en proporcionar un mensaje de error claro, lo que dificultaba entender dónde estaba el problema.
+    Asi que, para los casos más comunes, diseñamos una estructura que devolviera un error específico para cada caso y que funcionara tanto en preguntas simples como en pregutnas compuestas. 
+
+- Comandos de control:
+    Para mejorar la experiencia y jugabilidad, diseñamos unos comando que fueran capaces de aportar funcionabilidad como reiniciar el juego, un comando de  ayuda o la psoibilidad de eliminar a personajes de la lista.
